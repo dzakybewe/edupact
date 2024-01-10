@@ -1,5 +1,7 @@
 import 'package:edupact/common/styles.dart';
+import 'package:edupact/ui/activity_page.dart';
 import 'package:edupact/ui/home_page.dart';
+import 'package:edupact/ui/profile_page.dart';
 import 'package:edupact/ui/project_page.dart';
 import 'package:flutter/material.dart';
 
@@ -11,40 +13,86 @@ class Skeleton extends StatefulWidget {
 }
 
 class _SkeletonState extends State<Skeleton> {
-
-  int _selectedTab = 0;
-  final List _pages = [
+  int _selectedIndex = 0;
+  final List<Widget> _pages = [
     const HomePage(),
     const ProjectPage(),
+    const ActivityPage(),
+    const ProfilePage()
   ];
 
   void _changeTab(int index){
     setState(() {
-      _selectedTab = index;
+      _selectedIndex = index;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_selectedTab],
+      body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedTab,
+        currentIndex: _selectedIndex,
         onTap: (index) => _changeTab(index),
-        selectedItemColor: primaryColor,
-        selectedLabelStyle: const TextStyle(
-          fontWeight: FontWeight.w600
-        ),
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home'
+        selectedItemColor: Colors.white,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        selectedFontSize: 5.0,
+        unselectedFontSize: 5.0,
+        type: BottomNavigationBarType.fixed,
+        items:  [
+          buildBottomNavigationBarItem(
+            Icons.home,
+            'Home',
+            0,
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.work),
-            label: 'Project'
+          buildBottomNavigationBarItem(
+            Icons.work,
+            'Project',
+            1,
+          ),
+          buildBottomNavigationBarItem(
+            Icons.history,
+            'Activity',
+            2,
+          ),
+          buildBottomNavigationBarItem(
+            Icons.person,
+            'Profile',
+            3,
           ),
         ],
       ),
+    );
+  }
+
+  BottomNavigationBarItem buildBottomNavigationBarItem(IconData iconData, String label, int index) {
+    return BottomNavigationBarItem(
+      icon: Container(
+        height: 65,
+        width: 75,
+        padding: const EdgeInsets.all(10.0),
+        decoration: BoxDecoration(
+          color: _selectedIndex == index ? primaryColor : Colors.white,
+          borderRadius: BorderRadius.circular(25.0)
+        ),
+        child: Column(
+          children: [
+            Icon(
+              iconData,
+              color: _selectedIndex == index ? Colors.white : primaryColor,
+            ),
+            Text(
+              label,
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                color: _selectedIndex == index ? Colors.white : primaryColor,
+              ),
+            )
+          ],
+        ),
+      ),
+      label: '',
     );
   }
 }
