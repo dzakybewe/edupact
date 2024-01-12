@@ -1,5 +1,5 @@
 import 'package:edupact/common/styles.dart';
-import 'package:edupact/skeleton.dart';
+import 'package:edupact/ui/authentication/login_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         textTheme: textTheme,
       ),
-      home: const Skeleton(),
+      home: const LoginPage(),
     );
   }
 }
