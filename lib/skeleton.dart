@@ -2,7 +2,7 @@ import 'package:edupact/common/styles.dart';
 import 'package:edupact/ui/activity_page.dart';
 import 'package:edupact/ui/home_page.dart';
 import 'package:edupact/ui/profile_page.dart';
-import 'package:edupact/ui/project_page.dart';
+import 'package:edupact/ui/project/project_page.dart';
 import 'package:flutter/material.dart';
 
 class Skeleton extends StatefulWidget {
@@ -37,8 +37,6 @@ class _SkeletonState extends State<Skeleton> {
         selectedItemColor: Colors.white,
         showSelectedLabels: false,
         showUnselectedLabels: false,
-        selectedFontSize: 5.0,
-        unselectedFontSize: 5.0,
         type: BottomNavigationBarType.fixed,
         items:  [
           buildBottomNavigationBarItem(
@@ -69,9 +67,8 @@ class _SkeletonState extends State<Skeleton> {
   BottomNavigationBarItem buildBottomNavigationBarItem(IconData iconData, String label, int index) {
     return BottomNavigationBarItem(
       icon: Container(
-        height: 65,
         width: 75,
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(5.0),
         decoration: BoxDecoration(
           color: _selectedIndex == index ? primaryColor : Colors.white,
           borderRadius: BorderRadius.circular(25.0)

@@ -50,12 +50,12 @@ class HomePage extends StatelessWidget {
 
                 /* Tiles Section */
                 SizedBox(
-                  height: 215,
+                  height: 225,
                   child: GridView.count(
                     physics: const ScrollPhysics(
                     ),
                     shrinkWrap: false,
-                    crossAxisSpacing: 10,
+                    crossAxisSpacing: 20,
                     mainAxisSpacing: 10,
                     crossAxisCount: 4,
                     childAspectRatio: 4/5,

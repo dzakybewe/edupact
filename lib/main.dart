@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: primaryColor),
         useMaterial3: true,
-        textTheme: textTheme
+        textTheme: textTheme,
       ),
       home: const Skeleton(),
     );

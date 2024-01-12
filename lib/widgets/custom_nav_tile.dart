@@ -39,6 +39,7 @@ class CustomNavTile extends StatelessWidget {
               text,
               style: const TextStyle(
                 color: primaryColor,
+                fontSize: 12,
                 fontWeight: FontWeight.w600,
               ),
             ),
