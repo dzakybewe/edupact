@@ -1,12 +1,13 @@
 import 'package:edupact/common/styles.dart';
-import 'package:edupact/ui/activity_page.dart';
+import 'package:edupact/ui/activity/list_activity_page.dart';
 import 'package:edupact/ui/home_page.dart';
 import 'package:edupact/ui/profile_page.dart';
-import 'package:edupact/ui/project/project_page.dart';
+import 'package:edupact/ui/project/list_project_page.dart';
 import 'package:flutter/material.dart';
 
 class Skeleton extends StatefulWidget {
   const Skeleton({super.key});
+
 
   @override
   State<Skeleton> createState() => _SkeletonState();
@@ -16,8 +17,8 @@ class _SkeletonState extends State<Skeleton> {
   int _selectedIndex = 0;
   final List<Widget> _pages = [
     const HomePage(),
-    const ProjectPage(),
-    const ActivityPage(),
+    const ListProjectPage(),
+    const ListActivityPage(),
     const ProfilePage()
   ];
 

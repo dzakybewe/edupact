@@ -4,11 +4,13 @@ import '../common/styles.dart';
 
 class CustomButton extends StatelessWidget {
   final String label;
-  final VoidCallback onPressed;
+  final void Function()? onPressed;
+  final bool? isCancel;
   const CustomButton({
     super.key,
     required this.label,
-    required this.onPressed
+    required this.onPressed,
+    this.isCancel
   });
 
   @override
@@ -21,7 +23,7 @@ class CustomButton extends StatelessWidget {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0)
           ),
-          backgroundColor: secondaryColor,
+          backgroundColor: isCancel == true ? Colors.red : secondaryColor,
         ),
         onPressed: onPressed,
         child: Text(

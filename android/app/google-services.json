@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "141822640831",
+    "project_id": "edupact-c963e",
+    "storage_bucket": "edupact-c963e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:141822640831:android:27048a885f204057197c0a",
+        "android_client_info": {
+          "package_name": "com.bewe.edupact"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3bO6NbZiOt1vkZT37p94NFykUIWjVbpo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

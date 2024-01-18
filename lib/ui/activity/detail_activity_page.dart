@@ -1,12 +1,13 @@
 import 'package:edupact/firebase/database.dart';
+import 'package:edupact/model/activity.dart';
 import 'package:flutter/material.dart';
-
-import '../../model/project.dart';
 import '../../widgets/custom_button.dart';
+import '../workshop/detail_workshop_page.dart';
 
-class DetailProjectPage extends StatelessWidget {
-  final Project project;
-  const DetailProjectPage({super.key, required this.project});
+class DetailActivityPage extends StatelessWidget {
+  final String docId;
+  final Activity activity;
+  const DetailActivityPage({super.key, required this.activity, required this.docId});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,8 @@ class DetailProjectPage extends StatelessWidget {
             icon: const Icon(
               Icons.arrow_back_ios_new_rounded,
             ),
-            onPressed: () => Navigator.pop(context)),
+            onPressed: () => Navigator.pop(context)
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -26,7 +28,7 @@ class DetailProjectPage extends StatelessWidget {
             children: [
               Center(
                 child: Text(
-                  project.title,
+                  activity.title,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 28,
@@ -37,14 +39,15 @@ class DetailProjectPage extends StatelessWidget {
               Container(
                 width: double.maxFinite,
                 height: 200,
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(16.0)),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16.0)
+                ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(16.0),
                   child: Hero(
-                    tag: project.imageUrl,
+                    tag: activity.imageUrl,
                     child: Image.network(
-                      project.imageUrl,
+                      activity.imageUrl,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -64,7 +67,7 @@ class DetailProjectPage extends StatelessWidget {
                   ),
                   Expanded(
                     child: Text(
-                      project.organizer,
+                      activity.organizer,
                       style: const TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 16,
@@ -87,7 +90,7 @@ class DetailProjectPage extends StatelessWidget {
                   ),
                   Expanded(
                     child: Text(
-                      project.date,
+                      activity.date,
                       style: const TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 16,
@@ -110,7 +113,7 @@ class DetailProjectPage extends StatelessWidget {
                   ),
                   Expanded(
                     child: Text(
-                      project.location,
+                      activity.location,
                       style: const TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 16,
@@ -123,53 +126,68 @@ class DetailProjectPage extends StatelessWidget {
               const SizedBox(height: 10),
               const Text(
                 'Description',
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 22),
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 22
+                ),
                 textAlign: TextAlign.start,
               ),
               Text(
-                project.description,
-                style:
-                    const TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
+                activity.description,
+                style: const TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 14
+                ),
                 maxLines: 8,
                 textAlign: TextAlign.justify,
               ),
               const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'Participants',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 22,
-                    ),
-                    textAlign: TextAlign.start,
-                  ),
-                  Text(
-                    '${project.registeredParticipants}/${project.maxParticipants}',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16,
-                    ),
-                    textAlign: TextAlign.start,
-                  ),
-                ],
-              ),
               const SizedBox(height: 16),
               CustomButton(
-                label: 'Join',
-                onPressed: () {
-                  Database().addActivity(
-                    project.title,
-                    project.description,
-                    project.date,
-                    project.organizer,
-                    project.location,
-                    project.imageUrl,
-                    context
-                  );
+                label: 'Cancel',
+                onPressed: (){
+                  showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (context) {
+                        return AlertDialog(
+                          surfaceTintColor: Colors.white,
+                          title: const Center(
+                            child: Text(
+                              'Sure you want to cancel?',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 20,
+                              ),
+                            ),
+                          ),
+                          actions: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                CustomDialogButton(
+                                  textColor: Colors.black,
+                                  label: 'No',
+                                  bgColor: Colors.white,
+                                  onTap: () => Navigator.pop(context),
+                                ),
+                                CustomDialogButton(
+                                  textColor: Colors.white,
+                                  label: 'Yes, Cancel',
+                                  bgColor: Colors.red,
+                                  onTap: () {
+                                    Database().deleteActivity(context, docId);
+                                  },
+                                ),
+                              ],
+                            ),
+                          ],
+                        );
+                      });
                 },
+                isCancel: true,
               )
+
             ],
           ),
         ),

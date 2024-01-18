@@ -1,12 +1,12 @@
-import 'package:edupact/firebase/database.dart';
+import 'package:edupact/model/workshop.dart';
 import 'package:flutter/material.dart';
 
-import '../../model/project.dart';
+import '../../firebase/database.dart';
 import '../../widgets/custom_button.dart';
 
-class DetailProjectPage extends StatelessWidget {
-  final Project project;
-  const DetailProjectPage({super.key, required this.project});
+class DetailWorkshopPage extends StatelessWidget {
+  final Workshop workshop;
+  const DetailWorkshopPage({super.key, required this.workshop});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class DetailProjectPage extends StatelessWidget {
             children: [
               Center(
                 child: Text(
-                  project.title,
+                  workshop.title,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 28,
@@ -42,9 +42,9 @@ class DetailProjectPage extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(16.0),
                   child: Hero(
-                    tag: project.imageUrl,
+                    tag: workshop.imageUrl,
                     child: Image.network(
-                      project.imageUrl,
+                      workshop.imageUrl,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -64,7 +64,7 @@ class DetailProjectPage extends StatelessWidget {
                   ),
                   Expanded(
                     child: Text(
-                      project.organizer,
+                      workshop.organizer,
                       style: const TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 16,
@@ -87,7 +87,7 @@ class DetailProjectPage extends StatelessWidget {
                   ),
                   Expanded(
                     child: Text(
-                      project.date,
+                      workshop.date,
                       style: const TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 16,
@@ -110,7 +110,7 @@ class DetailProjectPage extends StatelessWidget {
                   ),
                   Expanded(
                     child: Text(
-                      project.location,
+                      workshop.location,
                       style: const TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 16,
@@ -127,7 +127,7 @@ class DetailProjectPage extends StatelessWidget {
                 textAlign: TextAlign.start,
               ),
               Text(
-                project.description,
+                workshop.description,
                 style:
                     const TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
                 maxLines: 8,
@@ -146,7 +146,7 @@ class DetailProjectPage extends StatelessWidget {
                     textAlign: TextAlign.start,
                   ),
                   Text(
-                    '${project.registeredParticipants}/${project.maxParticipants}',
+                    '${workshop.registeredParticipants}/${workshop.maxParticipants}',
                     style: const TextStyle(
                       fontWeight: FontWeight.w400,
                       fontSize: 16,
@@ -160,18 +160,53 @@ class DetailProjectPage extends StatelessWidget {
                 label: 'Join',
                 onPressed: () {
                   Database().addActivity(
-                    project.title,
-                    project.description,
-                    project.date,
-                    project.organizer,
-                    project.location,
-                    project.imageUrl,
-                    context
+                      workshop.title,
+                      workshop.description,
+                      workshop.date,
+                      workshop.organizer,
+                      workshop.location,
+                      workshop.imageUrl,
+                      context
                   );
                 },
               )
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class CustomDialogButton extends StatelessWidget {
+  final Color bgColor;
+  final Color textColor;
+  final String label;
+  final void Function() onTap;
+
+  const CustomDialogButton({
+    super.key,
+    required this.bgColor,
+    required this.textColor,
+    required this.label,
+    required this.onTap
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+        backgroundColor: bgColor,
+      ),
+      onPressed: onTap,
+      child: Text(
+        label,
+        style: TextStyle(
+          fontWeight: FontWeight.w600,
+          color: textColor,
+          fontSize: 14,
         ),
       ),
     );
